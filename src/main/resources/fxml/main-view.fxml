@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.timer.controller.MainController"
+      spacing="20" styleClass="main-container"
+      stylesheets="@../css/styles.css">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <!-- Header (subtitle removed) -->
+    <HBox alignment="CENTER_LEFT" styleClass="header">
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+    
+    <!-- Main Content Area -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        
+        <!-- Left Panel - Sequences -->
+        <VBox spacing="15" minWidth="220" maxWidth="240" styleClass="left-panel">
+            <HBox alignment="CENTER_LEFT" styleClass="panel-header">
+                <Label text="Sequences" styleClass="panel-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="newSequenceButton" text="New" styleClass="primary-button"/>
+            </HBox>
+            
+            <ScrollPane VBox.vgrow="ALWAYS" styleClass="sequence-scroll">
+                <VBox fx:id="sequenceContainer" spacing="10" styleClass="sequence-list"/>
+            </ScrollPane>
+            
+            <HBox spacing="10" styleClass="button-row">
+                <Button fx:id="deleteSequenceButton" text="Delete" styleClass="danger-button" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+        
+        <!-- Center Panel - Phases and Controls -->
+        <VBox spacing="15" HBox.hgrow="ALWAYS" styleClass="center-panel">
+            
+            <!-- Current Sequence Display -->
+            <VBox spacing="10" styleClass="current-phase-section">
+                <Label fx:id="currentSequenceTitleLabel" text="No sequence selected" styleClass="section-title"/>
+                <VBox fx:id="currentPhaseContainer" spacing="10" styleClass="current-phase-container">
+                    <Label fx:id="currentPhaseLabel" text="No sequence running" styleClass="current-phase-label"/>
+                    <Label fx:id="timeRemainingLabel" text="--:--" styleClass="time-display"/>
+                    <Label fx:id="sequenceProgressLabel" text="" styleClass="progress-label"/>
+                </VBox>
+            </VBox>
+            
+            <!-- Timer Controls -->
+            <VBox spacing="10" styleClass="controls-section">
+                <Label text="Timer Controls" styleClass="section-title"/>
+                <HBox spacing="15" alignment="CENTER" styleClass="control-buttons">
+                    <Button fx:id="startPauseButton" text="Start" styleClass="success-button" minWidth="100"/>
+                    <Button fx:id="resetButton" text="Reset" styleClass="secondary-button" minWidth="80"/>
+                </HBox>
+            </VBox>
+            
+            <!-- Phase Management -->
+            <VBox spacing="10" styleClass="phases-section">
+                <HBox alignment="CENTER_LEFT" styleClass="section-header">
+                    <Label text="Phases" styleClass="section-title"/>
+                </HBox>
+                
+                <HBox spacing="10" styleClass="phase-controls">
+                    <Button fx:id="addPhaseButton" text="Add Phase" styleClass="primary-button"/>
+                    <Button fx:id="editPhaseButton" text="Edit" styleClass="secondary-button"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="removePhaseButton" text="Delete" styleClass="danger-button"/>
+                </HBox>
+                
+                <ScrollPane VBox.vgrow="ALWAYS" styleClass="phase-list-scroll">
+                    <VBox fx:id="phaseListContainer" spacing="5" styleClass="phase-list"/>
+                </ScrollPane>
+            </VBox>
+        </VBox>
+    </HBox>
+    
+    <!-- Status Bar (left ready text removed) -->
+    <HBox alignment="CENTER_LEFT" styleClass="status-bar">
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Chain Timer v1.0" styleClass="version-text"/>
+    </HBox>
+    
+</VBox>

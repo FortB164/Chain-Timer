@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.timer.controller.PhaseDialogController"
+      spacing="20" minWidth="400" minHeight="200" styleClass="dialog-container"
+      stylesheets="@../css/styles.css">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <!-- Dialog Header -->
+    <VBox spacing="5" styleClass="dialog-header">
+        <Label text="Phase Details" styleClass="dialog-title"/>
+        <Label text="Configure the phase name and duration" styleClass="dialog-subtitle"/>
+    </VBox>
+    
+    <!-- Form Fields -->
+    <VBox spacing="15" VBox.vgrow="ALWAYS">
+        
+        <!-- Phase Name -->
+        <VBox spacing="5">
+            <Label text="Phase Name:" styleClass="field-label"/>
+            <TextField fx:id="nameField" promptText="Enter phase name" styleClass="text-field"/>
+        </VBox>
+        
+        <!-- Duration -->
+        <VBox spacing="5">
+            <Label text="Duration:" styleClass="field-label"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <VBox spacing="2">
+                    <Label text="Minutes:" styleClass="field-label-small"/>
+                    <Spinner fx:id="minutesSpinner" styleClass="duration-spinner" minWidth="80"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Seconds:" styleClass="field-label-small"/>
+                    <Spinner fx:id="secondsSpinner" styleClass="duration-spinner" minWidth="80"/>
+                </VBox>
+            </HBox>
+            <Label text="Range: 1 second to 8 hours" styleClass="help-text"/>
+        </VBox>
+        
+        <!-- End Sound -->
+        <VBox spacing="5">
+            <Label text="End Sound:" styleClass="field-label"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <ComboBox fx:id="soundComboBox" promptText="Select sound (optional)" styleClass="combo-box" minWidth="200"/>
+                <Button fx:id="noSoundButton" text="No Sound" styleClass="secondary-button"/>
+            </HBox>
+            <Label text="Sound will play when this phase ends (MP3 files only)" styleClass="help-text"/>
+        </VBox>
+        
+    </VBox>
+    
+    <!-- Action Buttons -->
+    <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="button-bar">
+        <Button fx:id="cancelButton" text="Cancel" styleClass="secondary-button" minWidth="80"/>
+        <Button fx:id="saveButton" text="Save" styleClass="primary-button" minWidth="80" defaultButton="true"/>
+    </HBox>
+    
+</VBox>
