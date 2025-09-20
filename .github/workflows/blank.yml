@@ -1,0 +1,56 @@
+name: Build and Package Chain Timer
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify JavaFX installation
+        run: |
+          if not exist "C:\Program Files\javafx-sdk-17.0.16" (
+            echo "❌ JavaFX not found at C:\Program Files\javafx-sdk-17.0.16"
+            exit 1
+          )
+          echo "✅ Found JavaFX at C:\Program Files\javafx-sdk-17.0.16"
+
+      - name: Verify Maven installation
+        run: |
+          mvn -version
+          if %ERRORLEVEL% NEQ 0 (
+            echo "❌ Maven not found or not working"
+            exit 1
+          )
+          echo "✅ Maven is installed"
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Package with jpackage
+        run: |
+          jpackage --type app-image ^
+            --input target ^
+            --name ChainTimer ^
+            --main-jar chain-timer-1.0.0.jar ^
+            --main-class com.timer.Main ^
+            --module-path "C:\Program Files\javafx-sdk-17.0.16\lib" ^
+            --add-modules javafx.controls,javafx.fxml,javafx.media
+
+      - name: Copy JavaFX DLLs to app image
+        run: |
+          copy "C:\Program Files\javafx-sdk-17.0.16\bin\*.dll" "ChainTimer\app\"
+
+      - name: Upload packaged app
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChainTimer-app-image
+          path: ChainTimer/
